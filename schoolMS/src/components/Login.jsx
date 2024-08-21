@@ -9,18 +9,26 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+
   const handlesubmit = (event) => {
     event.preventDefault();
     axios
       .post("http://localhost:3000/login", { email, password })
       .then((result) => {
         console.log(result);
-        if (result.data === "Success") {
+        if (result.data === "success") { // Adjusted to match server response
           navigate('/dashboard');
+        } else {
+          console.error("Login failed:", result.data);
+          // Optionally handle other cases, such as showing an error message
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        console.error("An error occurred:", err);
+        // Optionally handle errors, such as showing an error message
+      });
   };
+  
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100 loginPage">
@@ -70,3 +78,4 @@ const Login = () => {
 };
 
 export default Login;
+ 
