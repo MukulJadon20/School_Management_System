@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unknown-property */
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
@@ -12,11 +11,19 @@ axios.defaults.baseURL = "http://localhost:3000/";
 
 const Student = () => {
   const [addSection, setAddSection] = useState(false);
-
+  const [editSection, setEditSection] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     mobile: "",
+    _id:""
+  });
+
+  const [formDataEdit, setFormDataEdit] = useState({
+    name: "",
+    email: "",
+    mobile: "",
+   
   });
 
   const [dataList, setDataList] = useState([]);
@@ -74,7 +81,30 @@ const Student = () => {
     }
   };
 
-  const handleUpdate = async (id) => {};
+  const handleUpdate = async (e) => {
+    e.preventDefault()
+    const data = await axios.put("/updateinfo",formDataEdit);
+    if (data.data.success) {
+      getFetchData();
+      alert(data.data.message);
+      setEditSection(false)
+    }
+  };
+
+  const handleEditOnChange = async (e) => {
+    const { value, name } = e.target;
+    setFormDataEdit((preve) => {
+      return {
+        ...preve,
+        [name]: value,
+      };
+    });
+  };
+
+  const handleEdit=(el)=>{
+    setFormDataEdit(el)
+    setEditSection(true)
+  }
 
   return (
     <div className="container">
@@ -86,6 +116,15 @@ const Student = () => {
           handlesubmit={handlesubmit}
           handleOnChange={handleOnChange}
           handleclose={() => setAddSection(false)}
+          rest={formData}
+        />
+      )}
+      {editSection && (
+        <Formtable
+          handlesubmit={handleUpdate}
+          handleOnChange={handleEditOnChange}
+          handleclose={() => setEditSection(false)}
+          rest={formDataEdit}
         />
       )}
 
@@ -108,7 +147,14 @@ const Student = () => {
                     <td>{el.email}</td>
                     <td>{el.mobile}</td>
                     <td>
-                      <button className="btn btn-edit">Edit</button>
+                      <button
+                        className="btn btn-edit"
+                        onClick={() => {
+                          handleEdit(el);
+                        }}
+                      >
+                        Edit
+                      </button>
                       <button
                         className="btn btn-delete"
                         onClick={() => handleDelete(el._id)}

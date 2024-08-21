@@ -4,7 +4,7 @@ import React from 'react'
 import "../app.css"
 import { MdClose } from 'react-icons/md'
 
-const Formtable = ({handlesubmit,handleOnChange,handleclose}) => {
+const Formtable = ({handlesubmit,handleOnChange,handleclose,rest}) => {
   return (
     <div className="addcontainer">
     <form onSubmit={handlesubmit}>
@@ -17,6 +17,7 @@ const Formtable = ({handlesubmit,handleOnChange,handleclose}) => {
         id="name"
         name="name"
         onChange={handleOnChange}
+        value={rest.name}
       />
 
       <label htmlFor="email">Email:</label>
@@ -25,6 +26,7 @@ const Formtable = ({handlesubmit,handleOnChange,handleclose}) => {
         id="email"
         name="email"
         onChange={handleOnChange}
+        value={rest.email}
       />
 
       <label htmlFor="mobile">Mobile:</label>
@@ -33,6 +35,7 @@ const Formtable = ({handlesubmit,handleOnChange,handleclose}) => {
         id="mobile"
         name="mobile"
         onChange={handleOnChange}
+        value={rest.mobile}
       />
 
       <button className="btn">Submit</button>
