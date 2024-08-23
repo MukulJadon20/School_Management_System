@@ -72,7 +72,7 @@ const Dashboard = () => {
             </li>
             <li className="w-100">
               <Link
-                to="/dashboard/Trackfee"
+                to="/dashboard/trackfee"
                 className="nav-link px-0 align-middle text-white"
               >
                 {/* <i className="fs-4 bi-person ms-2"></i> */}
@@ -82,6 +82,7 @@ const Dashboard = () => {
             </li>
             <li className="w-100" onClick={handleLogout}>
             <Link
+             to="/dashboard/Logout"
                 className="nav-link px-0 align-middle text-white"
               >
                 {/* <i className="fs-4 bi-power ms-2"></i> */}

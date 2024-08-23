@@ -23,6 +23,7 @@ const Student = () => {
     aadhar: "",
     address: "",
     addmission:"",
+    mode:"",
     _id: ""
   });
 
@@ -36,6 +37,7 @@ const Student = () => {
     aadhar: "",
     address: "",
     addmission:"",
+    mode:"",
   });
 
   const [dataList, setDataList] = useState([]);
@@ -126,6 +128,7 @@ const Student = () => {
       aadhar: el.aadhar,
       address: el.address,
       addmission:el.addmission,
+      mode:el.mode,
     });
     setEditSection(true);
   };

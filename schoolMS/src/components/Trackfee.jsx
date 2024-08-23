@@ -143,12 +143,13 @@ const Trackfee = () => {
       address: el.address,
       fees: el.fees,
       feesdue: el.due,
+      mode:el.mode,
     });
     setEditSection(true);
   };
 
   const handlePrintSlip = (el) => {
-    const printWindow = window.open("", "Print Fee Slip", "width=600,height=400");
+    const printWindow = window.open("", "Print Fee Slip", "width=800,height=600");
     printWindow.document.write(`
       <html>
         <head>
@@ -222,32 +223,26 @@ const Trackfee = () => {
           <div class="fee-slip">
             <div class="header">
               <h1>INSTITUTE OF TECHNOLOGY AND MANAGEMENT</h1>
-              <h2>(Run By Samata Lok Sansthan Trust)</h2>
               <p>ITM CAMPUS OPP. SITHOLI</p>
               <p>RAILWAY STATION JHANSI ROAD, GWALIOR</p>
-              <p>Phone: 0751-2440064</p>
+              <p>Phone: 000-00000000</p>
             </div>
             <table>
-              // <tr><th>Receipt No.:</th><td>${el.receiptNo}</td></tr>
               <tr><th>Student Name:</th><td>${el.name}</td></tr>
               <tr><th>Father Name:</th><td>${el.father}</td></tr>
-              <tr><th>College Roll No.:</th><td>${el.rollNo}</td></tr>
-              <tr><th>Group:</th><td>${el.group}</td></tr>
-              <tr><th>Year:</th><td>${el.year}</td></tr>
-              <tr><th>Branch:</th><td>${el.branch}</td></tr>
-              <tr><th>Date:</th><td>${el.date}</td></tr>
+              <tr><th> Roll No.:</th><td>${el._id}</td></tr>
+               <tr><th>Class:</th><td>${el.class}</td></tr>
+              <tr><th>Date of Submission:</th><td>${el.date}</td></tr>
             </table>
             <table>
               <tr><th>Particular</th><th>Amount</th></tr>
-              <tr><td>College Fee</td><td>${el.collegeFee}</td></tr>
-              <tr><td>Caution Money</td><td>${el.cautionMoney}</td></tr>
             </table>
             <div class="amount">
-              <p>TOTAL: ${el.totalAmount}</p>
-              <p>Amount (in Words) Rs.: ${el.amountInWords}</p>
+              <p>TOTAL: ${el.fees}</p>
+               <p>Balance Due : ${el.due}</p>
             </div>
             <div class="footer">
-              <p>By Cash/Cheque: ${el.paymentMode}</p>
+              <p>By Cash/Cheque: ${el.mode}</p>
               <p>Drawn on:</p>
             </div>
             <div class="stamp">

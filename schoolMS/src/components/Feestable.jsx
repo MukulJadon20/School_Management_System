@@ -74,21 +74,32 @@ const Feestable = ({ handlesubmit, handleOnChange, handleclose, rest }) => {
           </div>
 
           <label htmlFor="aadhar">Payment Date:</label>
-            <input
-              type="date"
-              id="date"
-              name="date"
-              onChange={handleOnChange}
-              value={rest.date}
-            />
+          <input
+            type="date"
+            id="date"
+            name="date"
+            onChange={handleOnChange}
+            value={rest.date}
+          />
           <div className="mb-3">
-          
-
-            {/* <label htmlFor="address">Address:</label>
-            <input
+            <label
+              htmlFor="mode"
+              id="mode"
+              name="mode"
+              onChange={handleOnChange}
+              value={rest.address}
+            >
+              Payment Mode:
+            </label>
+            <select name="mode" id="mode">
+              <option value="cash">Cash</option>
+              <option value="cheque">Cheque</option>
+              <option value="online">Online</option>
+            </select>
+            {/* <input
               type="text"
-              id="address"
-              name="address"
+              id="mode"
+              name="mode"
               onChange={handleOnChange}
               value={rest.address}
             /> */}

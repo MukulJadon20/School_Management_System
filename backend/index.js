@@ -20,6 +20,7 @@ const schemaData = mongoose.Schema(
     addmission:String,
     pincode:String,
     date:String,
+    mode:String,
   },
   {
     timestamps: true, // Correct option name is 'timestamps', not 'Timestamp'
