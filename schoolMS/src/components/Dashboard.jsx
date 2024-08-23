@@ -3,6 +3,11 @@ import React from "react";
 import { Link , Outlet,useNavigate} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
+import { MdDashboard } from "react-icons/md";
+import { PiStudentDuotone } from "react-icons/pi";
+import { FaRegAddressCard } from "react-icons/fa";
+import { BsGraphUp } from "react-icons/bs";
+import { IoIosLogOut } from "react-icons/io";
 
 const Dashboard = () => {
      const navigate = useNavigate()
@@ -38,7 +43,8 @@ const Dashboard = () => {
                 to="/dashboard"
                 className="nav-link text-white px-0 align-middle"
               >
-                <i className="fs-4 bi-speedometer2 ms-2"></i>
+                {/* <i className="fs-4 bi-speedometer2 ms-2"></i> */}
+                <MdDashboard />
                 <span className="ms-2 d-none d-sm-inline">Dashboard</span>
               </Link>
             </li>
@@ -47,7 +53,8 @@ const Dashboard = () => {
                 to="/dashboard/student"
                 className="nav-link px-0 align-middle text-white"
               >
-                <i className="fs-4 bi-people ms-2"></i>
+                {/* <i className="fs-4 bi-people ms-2"></i> */}
+                <PiStudentDuotone />
                 <span className="ms-2 d-none d-sm-inline">
                   Manage Student
                 </span>
@@ -58,7 +65,8 @@ const Dashboard = () => {
                 to="/dashboard/result"
                 className="nav-link px-0 align-middle text-white"
               >
-                <i className="fs-4 bi-columns ms-2"></i>
+                {/* <i className="fs-4 bi-columns ms-2"></i> */}
+                <FaRegAddressCard />
                 <span className="ms-2 d-none d-sm-inline">Generate Result</span>
               </Link>
             </li>
@@ -67,7 +75,8 @@ const Dashboard = () => {
                 to="/dashboard/Trackfee"
                 className="nav-link px-0 align-middle text-white"
               >
-                <i className="fs-4 bi-person ms-2"></i>
+                {/* <i className="fs-4 bi-person ms-2"></i> */}
+                <BsGraphUp />
                 <span className="ms-2 d-none d-sm-inline">Track Fees</span>
               </Link>
             </li>
@@ -75,7 +84,8 @@ const Dashboard = () => {
             <Link
                 className="nav-link px-0 align-middle text-white"
               >
-                <i className="fs-4 bi-power ms-2"></i>
+                {/* <i className="fs-4 bi-power ms-2"></i> */}
+                <IoIosLogOut />
                 <span className="ms-2 d-none d-sm-inline">Logout</span>
               </Link>
             </li>

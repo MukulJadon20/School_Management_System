@@ -10,8 +10,9 @@ body {
     padding: 10px;
     /* background-color: red; */
     /* max-width: 1500px; */
-    max-width: fit-content;
+    max-width:fit-content ;
     margin: 50px auto;
+
 }
 
 .btn {
@@ -22,10 +23,7 @@ body {
     cursor: pointer;
 }
 
-.btn-add {
-    background: #194064;
-    color: white;
-}
+
 
 
 .addcontainer {
@@ -101,7 +99,7 @@ body {
 }
 
 .btn-edit,
-.btn-delete {
+.btn-delete,.btn-edit {
     font-size: 16px;
     padding: 5px 10px;
     margin: 0px 10px ;
@@ -109,10 +107,101 @@ body {
 }
 
 .btn-edit{
-    background-color: #e2f413;
+    background-color: lightblue;
+    /* background-color: #e2f413; */
 }
 
-.btn-delete{
-    background-color: #fa1717;
+.btn-print{
+    background-color: lightgreen;
+    /* background-color: #e2f413; */
+}
+
+.btn-delete {
+    background-color: lightcoral;
+    /* background-color: #fa1717; */
     color: white;
+}
+
+.btn-view {
+    background-color: lightgreen;
+    color: white;
+}
+
+.formcontainer {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.2);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display:flex ;
+    align-items: center;
+    justify-content: center;
+}
+
+.formcontainer form {
+    width: 800px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+
+ label {
+    font-size: 20px;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.formcontainer form button {
+    background-color: royalblue;
+    color: white;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+.mb-3{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.left_view{
+    font-size: 21px;
+}
+
+.left_view p{
+    font-weight: 600;
+}
+
+.left_view span{
+    font-weight: 400;
+}
+
+.card{
+    width: 50rem;
+    height: 20rem;
+}
+
+.search-bar{
+    display: flex;
+    justify-content: flex-end;
+    align-items:center ;
+   margin-bottom: 15px;
+   padding: 0;
+}
+
+.btn-add {
+    background: #194064;
+    color: white;
+    display: flex;
+    justify-content: flex-end;
+    align-items:center ;
+    margin-left: 55rem;
 }

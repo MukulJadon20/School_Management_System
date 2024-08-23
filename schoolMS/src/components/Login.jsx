@@ -69,7 +69,7 @@ const Login = () => {
             </label>
           </div>
         </form>
-        <Link to="/register" className="btn btn-success w-100 rounded-0">
+        <Link to="/" className="btn btn-success w-100 rounded-0">
           Signup
         </Link>
       </div>

@@ -9,11 +9,17 @@ const schemaData = mongoose.Schema(
   {
     name: String,
     father:String,
+    age:String,
     class:String,
     email: String,
     mobile: String,
+    aadhar:String,
     address:String,
-    
+    fees:String,
+    due:String,
+    addmission:String,
+    pincode:String,
+    date:String,
   },
   {
     timestamps: true, // Correct option name is 'timestamps', not 'Timestamp'
@@ -40,6 +46,27 @@ app.get('/getinfo', async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 });
+
+
+app.get("/getinfo/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    const student = await userModel.findById(id); // Use userModel to find by ID
+    if (!student) {
+      return res.status(404).json({ success: false, message: "Student not found" });
+    }
+
+    console.log("Student is available");
+    return res.status(200).json({ success: true, data: student });
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
+
+
 
 
 app.post("/createinfo", async (req, res) => {
@@ -96,11 +123,11 @@ app.delete("/deleteinfo/:id", async (req, res) => {
   }
 });
 
-app.get("/", (req, res) => {
-  return res.status(200).send("welcome to mern stack");
-});
+// app.get("/", (req, res) => {
+//   return res.status(200).send("welcome to mern stack");
+// });
 
-app.post("/register", (req, res) => {
+app.post("/", (req, res) => {
   Admin.create(req.body)
     .then((Admin) => res.json(Admin))
     .catch((err) => res.json(err));
