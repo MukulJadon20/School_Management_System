@@ -4,6 +4,9 @@ import mongoose from "mongoose";
 import cors from "cors";
 import { Admin } from "./models/adminSchema.js";
 
+// require("dotenv").config
+// const PORT=process.env.PORT;
+// const connection = mongoose.connect(process.env.mongoDBURL)
 // Define your schema and model here
 const schemaData = mongoose.Schema(
   {
@@ -147,53 +150,6 @@ app.post("/login", (req, res) => {
     }
   });
 });
-
-
-
-
-
-// app.post('/api/student/result', async (req, res) => {
-//   try {
-//     const { rollNumber, name, class: studentClass, marks } = req.body;
-
-//     // Validate the incoming data
-//     if (!rollNumber || !name || !studentClass || !marks) {
-//       return res.status(400).json({ message: "All fields are required." });
-//     }
-
-//     // Define or replace this function with actual save logic
-//     const resultSchema = mongoose.Schema({
-//       rollNumber: String,
-//       name: String,
-//       class: String,
-//       marks: {
-      
-//       }
-//     });
-//     const ResultModel = mongoose.model('results', resultSchema);
-
-//     const newResult = new ResultModel({
-//       rollNumber,
-//       name,
-//       class: studentClass,
-//       marks
-//     });
-
-//     const savedResult = await newResult.save();
-
-//     return res.status(200).json({ message: "Result saved successfully", data: savedResult });
-//   } catch (error) {
-//     console.error("Error saving result:", error);
-//     return res.status(500).json({ message: "Error saving result" });
-//   }
-// });
-
-
-
-
-
-
-
 
 // Connect to MongoDB and start server
 mongoose
