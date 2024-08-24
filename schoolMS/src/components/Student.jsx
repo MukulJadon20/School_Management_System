@@ -24,6 +24,7 @@ const Student = () => {
     address: "",
     addmission:"",
     mode:"",
+    roll:"",
     _id: ""
   });
 
@@ -38,6 +39,7 @@ const Student = () => {
     address: "",
     addmission:"",
     mode:"",
+    roll:"",
   });
 
   const [dataList, setDataList] = useState([]);
@@ -129,6 +131,7 @@ const Student = () => {
       address: el.address,
       addmission:el.addmission,
       mode:el.mode,
+      roll:el.roll,
     });
     setEditSection(true);
   };
@@ -144,12 +147,14 @@ const Student = () => {
     const father = el.father ? el.father.toLowerCase() : "";
     const age = el.age ? el.age.toLowerCase() : "";
     const className = el.class ? el.class.toLowerCase() : "";
+    const roll = el.roll ? el.class.toLowerCase() : "";
 
     return (
       name.includes(searchQuery) ||
       father.includes(searchQuery) ||
        age.includes(searchQuery) ||
-      className.includes(searchQuery)
+      className.includes(searchQuery)||
+      roll.includes(searchQuery)
     );
   });
   
@@ -197,8 +202,8 @@ const Student = () => {
         <table>
           <thead>
             <tr>
+            <th>Roll No</th>
               <th>Name</th>
-              <th>Father</th>
               <th>DOB</th>
               <th>Class</th>
               <th>Actions</th>
@@ -208,8 +213,8 @@ const Student = () => {
             {filteredDataList.length > 0 ? (
               filteredDataList.map((el) => (
                 <tr key={el._id}>
+                   <td>{el.roll}</td>
                   <td>{el.name}</td>
-                  <td>{el.father}</td>
                   <td>{el.age}</td>
                   <td>{el.class}</td>
                   <td>

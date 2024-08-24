@@ -21,6 +21,18 @@ const schemaData = mongoose.Schema(
     pincode:String,
     date:String,
     mode:String,
+    english: String,
+    hindi: String,
+    mathematics: String,
+    science: String,
+    roll:Number,
+    yellow:{type:String,
+      requires:true
+    },
+    marks:{type:String,
+      requires:true
+    },
+  
   },
   {
     timestamps: true, // Correct option name is 'timestamps', not 'Timestamp'
@@ -82,19 +94,6 @@ app.post("/createinfo", async (req, res) => {
 });
 
 
-// app.put('/updateinfo/:id', async (req, res) => {
-//   const { id } = req.params;
-//   if (!isValidObjectId(id)) {
-//     return res.status(400).send({ error: 'Invalid ID format' });
-//   }
-
-//   try {
-//     const updatedData = await userModel.findByIdAndUpdate(id, req.body, { new: true });
-//     res.send({ success: true, message: "data updated successfully", data: updatedData });
-//   } catch (error) {
-//     res.status(500).json({ success: false, message: error.message });
-//   }
-// });
 
 app.put('/updateinfo/:id', async (req, res) => {
   const { id } = req.params;
@@ -148,6 +147,53 @@ app.post("/login", (req, res) => {
     }
   });
 });
+
+
+
+
+
+// app.post('/api/student/result', async (req, res) => {
+//   try {
+//     const { rollNumber, name, class: studentClass, marks } = req.body;
+
+//     // Validate the incoming data
+//     if (!rollNumber || !name || !studentClass || !marks) {
+//       return res.status(400).json({ message: "All fields are required." });
+//     }
+
+//     // Define or replace this function with actual save logic
+//     const resultSchema = mongoose.Schema({
+//       rollNumber: String,
+//       name: String,
+//       class: String,
+//       marks: {
+      
+//       }
+//     });
+//     const ResultModel = mongoose.model('results', resultSchema);
+
+//     const newResult = new ResultModel({
+//       rollNumber,
+//       name,
+//       class: studentClass,
+//       marks
+//     });
+
+//     const savedResult = await newResult.save();
+
+//     return res.status(200).json({ message: "Result saved successfully", data: savedResult });
+//   } catch (error) {
+//     console.error("Error saving result:", error);
+//     return res.status(500).json({ message: "Error saving result" });
+//   }
+// });
+
+
+
+
+
+
+
 
 // Connect to MongoDB and start server
 mongoose

@@ -9,8 +9,9 @@ import Result from "./components/Result";
 import Trackfee from "./components/Trackfee";
 import Signup from "./components/Signup";
 import View from "./components/View";
-import Edit from "./components/Edit";
+import Edit from "./components/ResultGenerate";
 import Logout from "./components/Logout";
+import ResultGenerate from "./components/ResultGenerate";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             path="/dashboard/student/view/edit/:id"
             element={<Edit />}
           ></Route>
+              <Route path="/dashboard/result/resultgenerate/:id" element={<ResultGenerate />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

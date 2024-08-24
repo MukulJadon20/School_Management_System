@@ -98,8 +98,8 @@ body {
     border-bottom: 1px solid #c9c5c2;
 }
 
-.btn-edit,
-.btn-delete,.btn-edit {
+.btn-edit,.btn-generate,
+.btn-delete,.btn-view,.btn-print{
     font-size: 16px;
     padding: 5px 10px;
     margin: 0px 10px ;
@@ -107,23 +107,28 @@ body {
 }
 
 .btn-edit{
-    background-color: lightblue;
-    /* background-color: #e2f413; */
+    background-color: rgb(52, 180, 222);
+    color: white;
 }
 
 .btn-print{
-    background-color: lightgreen;
-    /* background-color: #e2f413; */
+    background-color: rgb(11, 234, 11);
+    color: white;
 }
 
 .btn-delete {
-    background-color: lightcoral;
+    background-color: rgb(231, 48, 48);
     /* background-color: #fa1717; */
     color: white;
 }
 
-.btn-view {
-    background-color: lightgreen;
+.btn-view{
+    background-color: rgb(11, 234, 11);
+    color: white;
+}
+
+.btn-generate{
+    background-color: rgb(11, 234, 11);
     color: white;
 }
 
@@ -205,3 +210,53 @@ body {
     align-items:center ;
     margin-left: 55rem;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.result-template {
+    width: 100%;
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .student-details p {
+    margin: 5px 0;
+  }
+  
+  .marks-input label {
+    display: block;
+    margin: 10px 0;
+  }
+  
+  .result-display p {
+    font-weight: bold;
+  }
+  
+  button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
