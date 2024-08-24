@@ -14,9 +14,14 @@ import Logout from "./components/Logout";
 import ResultGenerate from "./components/ResultGenerate";
 
 function App() {
-  return (
+
+  
+ 
+   
     <BrowserRouter>
+   
       <Routes>
+     
         <Route path="/" element={<Signup />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/dashboard" element={<Dashboard />}>
@@ -32,9 +37,10 @@ function App() {
           ></Route>
               <Route path="/dashboard/result/resultgenerate/:id" element={<ResultGenerate />}></Route>
         </Route>
+       
       </Routes>
     </BrowserRouter>
-  );
+
 }
 
 export default App;
