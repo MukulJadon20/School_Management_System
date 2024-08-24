@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { baseUrl } from './urls';
 
 const ResultGenerate = () => {
   const { id } = useParams(); // To get student ID from the URL
@@ -21,7 +22,7 @@ const ResultGenerate = () => {
     // Fetch student data by ID
     const fetchStudentData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/getinfo/${id}`);
+        const response = await axios.get(`${baseUrl}/getinfo/${id}`);
         if (response.data.success) {
           const studentData = response.data.data;
           setStudent({
@@ -66,7 +67,7 @@ const ResultGenerate = () => {
       // Log the data being sent to the server
       console.log("Sending result data:", resultData);
   
-      const response = await axios.post('http://localhost:3000/createinfo', resultData);
+      const response = await axios.post(`${baseUrl}/createinfo`, resultData);
       console.log('Result saved:', response.data);
     } catch (error) {
       console.error('Error saving result:', error);

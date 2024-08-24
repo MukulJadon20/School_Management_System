@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "./style.css";
 import axios from "axios";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { baseUrl } from "./urls";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,7 +14,7 @@ const Login = () => {
   const handlesubmit = (event) => {
     event.preventDefault();
     axios
-      .post("http://localhost:3000/login", { email, password })
+      .post(`${baseUrl}/login`, { email, password })
       .then((result) => {
         console.log(result);
         if (result.data === "success") { // Adjusted to match server response

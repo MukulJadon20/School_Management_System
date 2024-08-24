@@ -12,9 +12,10 @@ import { MdDelete } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { IoPrintSharp } from "react-icons/io5";
+import { baseUrl } from "./urls";
 
 
-axios.defaults.baseURL = "http://localhost:3000/";
+axios.defaults.baseURL = `${baseUrl}/`;
 
 const Trackfee = () => {
   const [addSection, setAddSection] = useState(false);

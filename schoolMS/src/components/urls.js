@@ -1,0 +1,1 @@
+export const baseUrl=`https://schoolmanagementsystem1.onrender.com`

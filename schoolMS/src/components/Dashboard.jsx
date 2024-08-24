@@ -8,12 +8,13 @@ import { PiStudentDuotone } from "react-icons/pi";
 import { FaRegAddressCard } from "react-icons/fa";
 import { BsGraphUp } from "react-icons/bs";
 import { IoIosLogOut } from "react-icons/io";
+import { baseUrl } from "./urls";
 
 const Dashboard = () => {
      const navigate = useNavigate()
   axios.defaults.withCredentials = true
   const handleLogout = () => {
-    axios.get('http://localhost:3000/auth/logout')
+    axios.get(`${baseUrl}/logout`)
     .then(result => {
       if(result.data.Status) { 
         localStorage.removeItem("valid")

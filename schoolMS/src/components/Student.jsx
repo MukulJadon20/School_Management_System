@@ -7,8 +7,9 @@ import { FaEye } from "react-icons/fa";
 import { MdModeEdit, MdDelete, MdClose } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
+import { baseUrl } from "./urls";
 
-axios.defaults.baseURL = "http://localhost:3000/";
+axios.defaults.baseURL = `${baseUrl}/`;
 
 const Student = () => {
   const [addSection, setAddSection] = useState(false);

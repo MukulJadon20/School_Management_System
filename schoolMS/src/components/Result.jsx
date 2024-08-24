@@ -13,8 +13,9 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { IoPrintSharp } from "react-icons/io5";
 import { FaPrint } from "react-icons/fa";
+import { baseUrl } from "./urls";
 
-axios.defaults.baseURL = "http://localhost:3000/";
+axios.defaults.baseURL = `${baseUrl}/`;
 
 const Result = () => {
   const navigate = useNavigate(); // Initialize useNavigate

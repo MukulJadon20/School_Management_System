@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { baseUrl } from "./urls";
 
 const Signup = () => {
   const [email, setEmail] = useState();
@@ -11,7 +12,7 @@ const Signup = () => {
   const handlesubmit = (event) => {
     event.preventDefault();
     axios
-      .post("http://localhost:3000/register", { email, password })
+      .post(`${baseUrl}/register`, { email, password })
       .then((result) => {
         console.log(result);
         navigate("/login");
