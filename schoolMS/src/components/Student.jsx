@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import "../App.css";
 import axios from "axios";
-import Formtable from "./formtable";
+import Formtable from "./Formtable";
 import Formedit from "./Formedit";
 import { FaEye } from "react-icons/fa";
 import { MdModeEdit, MdDelete, MdClose } from "react-icons/md";
