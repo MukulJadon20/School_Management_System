@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import "../app.css";
 import axios from "axios";
@@ -9,6 +11,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Formedit from "./Formedit";
 import { FaSearchLocation } from "react-icons/fa";
 import { MdDateRange } from "react-icons/md";
+import { FaTransgender } from "react-icons/fa";
 
 const View = () => {
   const [formData, setFormData] = useState({});
@@ -144,6 +147,10 @@ const View = () => {
               <p className="mt-3">
                 <MdOutlineClass />
                 Class: <span>{formData.class}</span>
+              </p>
+              <p className="mt-3">
+              <FaTransgender />
+                Gender: <span>{formData.gender}</span>
               </p>
             </div>
             <div className="right_view col-lg-6 col-md-6 col-12">

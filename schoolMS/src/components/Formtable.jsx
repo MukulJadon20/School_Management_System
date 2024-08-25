@@ -113,6 +113,28 @@ const Formtable = ({ handlesubmit, handleOnChange, handleclose, rest }) => {
               value={rest.addmission}
             />
           </div>
+          <div className="mb-3">
+            <label htmlFor="addmission">Roll No. : </label>
+            <input
+              type="roll"
+              id="roll"
+              name="roll"
+              onChange={handleOnChange}
+              value={rest.roll}
+            />
+
+            <label htmlFor="gender">Gender : </label>
+            <select
+              name="gender"
+              id="gender"
+              onChange={handleOnChange}
+              value={rest.gender}
+            >
+              <option value="other">other</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
         </div>
 
         <button className="btn">Submit</button>

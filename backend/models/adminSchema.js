@@ -11,6 +11,7 @@ const adminSchema = mongoose.Schema({
   // },
   email: String,
   password: String,
+  successfulLogins: { type: Number, default: 0 }
 });
 
 export const Admin = mongoose.model("Admin", adminSchema);

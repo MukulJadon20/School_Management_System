@@ -113,6 +113,14 @@ const Formedit = ({ handlesubmit, handleOnChange, handleclose, rest }) => {
               value={rest.addmission}
             />
           </div>
+          < label htmlFor="addmission">Roll No. : </label>
+            <input
+              type="roll"
+              id="roll"
+              name="roll"
+              onChange={handleOnChange}
+              value={rest.roll}
+            />
         </div>
 
         <button className="btn">Submit</button>

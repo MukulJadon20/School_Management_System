@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 // import "../components/Student.jsx";
-import "../app.css";
+import "../App.css";
 import { MdClose } from "react-icons/md";
 import axios from "axios";
 //import Formtable from "./formtable";
@@ -13,7 +13,6 @@ import { NavLink } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { IoPrintSharp } from "react-icons/io5";
 import { baseUrl } from "./urls";
-
 
 axios.defaults.baseURL = `${baseUrl}/`;
 
@@ -144,13 +143,39 @@ const Trackfee = () => {
       address: el.address,
       fees: el.fees,
       feesdue: el.due,
-      mode:el.mode,
+      mode: el.mode,
     });
     setEditSection(true);
   };
 
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Function to handle search input change
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value.toLowerCase());
+  };
+
+  // Function to filter the dataList based on searchQuery
+  const filteredDataList = dataList.filter((el) => {
+    const name = el.name ? el.name.toLowerCase() : "";
+    const father = el.father ? el.father.toLowerCase() : "";
+    const roll = el._id ? el._id.toLowerCase() : ""; // Assuming _id is the roll number
+    const className = el.class ? el.class.toLowerCase() : "";
+
+    return (
+      name.includes(searchQuery) ||
+      father.includes(searchQuery) ||
+      roll.includes(searchQuery) ||
+      className.includes(searchQuery)
+    );
+  });
+
   const handlePrintSlip = (el) => {
-    const printWindow = window.open("", "Print Fee Slip", "width=800,height=600");
+    const printWindow = window.open(
+      "",
+      "Print Fee Slip",
+      "width=800,height=600"
+    );
     printWindow.document.write(`
       <html>
         <head>
@@ -260,10 +285,23 @@ const Trackfee = () => {
     printWindow.document.close();
     printWindow.print();
   };
-  
 
   return (
     <div className="container">
+      {/* Search Bar */}
+      <div className="search-bar">
+        <div className="icon">
+          <FaSearch />
+        </div>
+        <input
+          type="text"
+          placeholder="Search by name, roll no, or father's name"
+          value={searchQuery}
+          onChange={handleSearchChange}
+        />
+      </div>
+
+      {/* Form Sections */}
       {addSection && (
         <Feestable
           handlesubmit={handlesubmit}
@@ -281,6 +319,7 @@ const Trackfee = () => {
         />
       )}
 
+      {/* Table with Filtered Data */}
       <div className="tableContainer">
         <table>
           <thead>
@@ -293,8 +332,8 @@ const Trackfee = () => {
             </tr>
           </thead>
           <tbody>
-            {dataList.length > 0 ? (
-              dataList.map((el) => (
+            {filteredDataList.length > 0 ? (
+              filteredDataList.map((el) => (
                 <tr key={el._id}>
                   <td>{el.name}</td>
                   <td>{el.father}</td>
@@ -317,7 +356,7 @@ const Trackfee = () => {
                       className="btn btn-print"
                       onClick={() => handlePrintSlip(el)}
                     >
-                     <IoPrintSharp />
+                      <IoPrintSharp />
                     </button>
                   </td>
                 </tr>
@@ -325,7 +364,7 @@ const Trackfee = () => {
             ) : (
               <tr>
                 <td colSpan="5" style={{ textAlign: "center" }}>
-                  No Data
+                  No Data Found
                 </td>
               </tr>
             )}
@@ -337,24 +376,3 @@ const Trackfee = () => {
 };
 
 export default Trackfee;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

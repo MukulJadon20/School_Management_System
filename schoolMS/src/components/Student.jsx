@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import "../app.css";
+import "../App.css";
 import axios from "axios";
 import Formtable from "./formtable";
 import Formedit from "./Formedit";
@@ -18,29 +19,31 @@ const Student = () => {
     name: "",
     father: "",
     age: "",
+    gender: "",
     class: "",
     email: "",
     mobile: "",
     aadhar: "",
     address: "",
-    addmission:"",
-    mode:"",
-    roll:"",
-    _id: ""
+    addmission: "",
+    mode: "",
+    roll: "",
+    _id: "",
   });
 
   const [formDataEdit, setFormDataEdit] = useState({
     name: "",
     father: "",
     age: "",
+    gender:"",
     class: "",
     email: "",
     mobile: "",
     aadhar: "",
     address: "",
-    addmission:"",
-    mode:"",
-    roll:"",
+    addmission: "",
+    mode: "",
+    roll: "",
   });
 
   const [dataList, setDataList] = useState([]);
@@ -65,7 +68,10 @@ const Student = () => {
         getFetchData();
       }
     } catch (error) {
-      console.error("Error during submission:", error.response ? error.response.data : error.message);
+      console.error(
+        "Error during submission:",
+        error.response ? error.response.data : error.message
+      );
       alert("There was an error submitting the form. Please try again.");
     }
   };
@@ -99,14 +105,20 @@ const Student = () => {
       if (!formDataEdit._id) {
         throw new Error("ID is missing");
       }
-      const response = await axios.put(`/updateinfo/${formDataEdit._id}`, formDataEdit);
+      const response = await axios.put(
+        `/updateinfo/${formDataEdit._id}`,
+        formDataEdit
+      );
       if (response.data.success) {
         getFetchData();
         alert(response.data.message);
         setEditSection(false);
       }
     } catch (error) {
-      console.error("Error during update:", error.response ? error.response.data : error.message);
+      console.error(
+        "Error during update:",
+        error.response ? error.response.data : error.message
+      );
       alert("There was an error updating the data. Please try again.");
     }
   };
@@ -125,14 +137,15 @@ const Student = () => {
       name: el.name,
       father: el.father,
       age: el.age,
+      gender:el.gender,
       class: el.class,
       email: el.email,
       mobile: el.mobile,
       aadhar: el.aadhar,
       address: el.address,
-      addmission:el.addmission,
-      mode:el.mode,
-      roll:el.roll,
+      addmission: el.addmission,
+      mode: el.mode,
+      roll: el.roll,
     });
     setEditSection(true);
   };
@@ -153,29 +166,25 @@ const Student = () => {
     return (
       name.includes(searchQuery) ||
       father.includes(searchQuery) ||
-       age.includes(searchQuery) ||
-      className.includes(searchQuery)||
+      age.includes(searchQuery) ||
+      className.includes(searchQuery) ||
       roll.includes(searchQuery)
     );
   });
-  
 
   return (
     <div className="container">
-
-<div className="search-bar">
-      <div className="icon">
-      <FaSearch />
-      </div>
+      <div className="search-bar">
+        <div className="icon">
+          <FaSearch />
+        </div>
         <input
           type="text"
           placeholder="  Search by name, DOB, or father's name"
           value={searchQuery}
           onChange={handleSearchChange}
         />
-       
       </div>
-
 
       <button className="btn btn-add" onClick={() => setAddSection(true)}>
         Enroll Student
@@ -197,13 +206,11 @@ const Student = () => {
         />
       )}
 
-    
-
       <div className="tableContainer">
         <table>
           <thead>
             <tr>
-            <th>Roll No</th>
+              <th>Roll No</th>
               <th>Name</th>
               <th>DOB</th>
               <th>Class</th>
@@ -214,7 +221,7 @@ const Student = () => {
             {filteredDataList.length > 0 ? (
               filteredDataList.map((el) => (
                 <tr key={el._id}>
-                   <td>{el.roll}</td>
+                  <td>{el.roll}</td>
                   <td>{el.name}</td>
                   <td>{el.age}</td>
                   <td>{el.class}</td>
@@ -224,10 +231,16 @@ const Student = () => {
                         <FaEye />
                       </button>
                     </NavLink>
-                    <button className="btn btn-edit" onClick={() => handleEdit(el)}>
+                    <button
+                      className="btn btn-edit"
+                      onClick={() => handleEdit(el)}
+                    >
                       <MdModeEdit />
                     </button>
-                    <button className="btn btn-delete" onClick={() => handleDelete(el._id)}>
+                    <button
+                      className="btn btn-delete"
+                      onClick={() => handleDelete(el._id)}
+                    >
                       <MdDelete />
                     </button>
                   </td>
@@ -249,34 +262,6 @@ const Student = () => {
 
 export default Student;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // /* eslint-disable no-unused-vars */
 // import React, { useEffect, useState } from "react";
 // // import "../components/Student.jsx";
@@ -291,10 +276,7 @@ export default Student;
 // import { Link } from "react-router-dom";
 // import { NavLink } from "react-router-dom";
 
-
 // axios.defaults.baseURL = "http://localhost:3000/";
-
-
 
 // const Student = () => {
 //   const [addSection, setAddSection] = useState(false);
@@ -320,7 +302,7 @@ export default Student;
 //     mobile: "",
 //     aadhar:"",
 //     address:"",
-   
+
 //   });
 
 //   const [dataList, setDataList] = useState([]);
@@ -334,8 +316,6 @@ export default Student;
 //       };
 //     });
 //   };
-
-
 
 //   const handlesubmit = async (e) => {
 //     e.preventDefault();
@@ -354,7 +334,6 @@ export default Student;
 //       alert("There was an error submitting the form. Please try again.");
 //     }
 //   };
-  
 
 //   const getFetchData = async () => {
 //     try {
@@ -368,13 +347,10 @@ export default Student;
 //       console.error("Error fetching data:", error);
 //     }
 //   };
-  
 
 //   useEffect(() => {
 //     getFetchData();
 //   }, []);
-
-
 
 //   const handleDelete = async (id) => {
 //     const data = await axios.delete("/deleteinfo/" + id);
@@ -402,8 +378,6 @@ export default Student;
 //       alert("There was an error updating the data. Please try again.");
 //     }
 //   };
-  
-  
 
 //   const handleEditOnChange = async (e) => {
 //     const { value, name } = e.target;
@@ -414,8 +388,6 @@ export default Student;
 //       };
 //     });
 //   };
-
-
 
 //   const handleEdit = (el) => {
 //     setFormDataEdit({
@@ -431,7 +403,6 @@ export default Student;
 //     });
 //     setEditSection(true);
 //   };
-  
 
 //     return (
 //       <div className="container">
@@ -454,7 +425,7 @@ export default Student;
 //             rest={formDataEdit}
 //           />
 //         )}
-  
+
 //         <div className="tableContainer">
 //           <table>
 //             <thead>
@@ -523,10 +494,6 @@ export default Student;
 
 // export default Student;
 
-
-
-
-
 // /* eslint-disable react/jsx-key */
 // /* eslint-disable no-unused-vars */
 // import React, { useEffect, useState } from "react";
@@ -552,7 +519,7 @@ export default Student;
 //     name: "",
 //     email: "",
 //     mobile: "",
-   
+
 //   });
 
 //   const [dataList, setDataList] = useState([]);
@@ -582,7 +549,6 @@ export default Student;
 //       alert("There was an error submitting the form. Please try again.");
 //     }
 //   };
-
 
 //   const getFetchData = async () => {
 //     try {
@@ -645,7 +611,6 @@ export default Student;
 //     });
 //     setEditSection(true);
 //   };
-  
 
 //   return (
 //     <div className="container">
