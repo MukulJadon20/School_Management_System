@@ -8,8 +8,16 @@ export const mongoDBURL='mongodb+srv://mukuljadon:Mukul%402001@cluster0.wm50s.mo
 export default {
     server: {
       proxy: {
-        '/api': 'http://localhost:3000',
+        '/api': 'https://schoolmanagementsystem1.onrender.com',
       },
     },
   };
+  
+  // export default {
+  //   server: {
+  //     proxy: {
+  //       '/api': 'http://localhost:3000',
+  //     },
+  //   },
+  // };
   

@@ -3,9 +3,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { MdModeEdit, MdDelete } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
-import Formtable from './Formtable'; // Component for adding a new admin
-import Formedit from './Formedit'; // Component for editing an existing admin
 import AdminTable from './AdminTable';
+import { baseUrl } from './urls';
 
 const Home = () => {
   const [adminTotal, setAdminTotal] = useState(0);
@@ -27,7 +26,7 @@ const Home = () => {
   }, []);
 
   const AdminRecords = () => {
-    axios.get('http://localhost:3000/adminrecords')
+    axios.get(`${baseUrl}/adminrecords`)
       .then(result => {
         if (result.data.Status) {
           setAdmins(result.data.Result);
@@ -41,7 +40,7 @@ const Home = () => {
   };
 
   const adminCount = () => {
-    axios.get('http://localhost:3000/admincount')
+    axios.get(`${baseUrl}/admincount`)
       .then(result => {
         if (result.data && typeof result.data.count === 'number') {
           setAdminTotal(result.data.count);
@@ -55,7 +54,7 @@ const Home = () => {
   };
 
   const studentCount = () => {
-    axios.get('http://localhost:3000/studentcount')
+    axios.get(`${baseUrl}/studentcount`)
       .then(result => {
         if (result.data && typeof result.data.count === 'number') {
           setStudentTotal(result.data.count);
@@ -80,7 +79,7 @@ const Home = () => {
   // Handle Delete function
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this admin?")) {
-      axios.delete(`http://localhost:3000/deleteadmin/${id}`)
+      axios.delete(`${baseUrl}/deleteadmin/${id}`)
         .then(response => {
           if (response.data.Status) {
             // Remove the deleted admin from the state

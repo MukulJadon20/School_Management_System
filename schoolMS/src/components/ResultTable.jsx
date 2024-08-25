@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useEffect } from "react";
-import "../app.css";
+import "../App.css";
 import { MdClose } from "react-icons/md";
 
 const ResultTable = ({ handlesubmit, handleOnChange, handleclose, rest, setRest }) => {

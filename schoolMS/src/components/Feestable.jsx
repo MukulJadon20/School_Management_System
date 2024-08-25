@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from "react";
-import "../app.css";
+import "../App.css";
 import { MdClose } from "react-icons/md";
 
 const Feestable = ({ handlesubmit, handleOnChange, handleclose, rest }) => {
