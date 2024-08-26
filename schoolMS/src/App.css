@@ -202,7 +202,7 @@ body {
    padding: 0;
 }
 
-.btn-add {
+.btn-add .next {
     background: #194064;
     color: white;
     display: flex;
@@ -211,8 +211,23 @@ body {
     margin-left: 55rem;
 }
 
+.next {
+    background: #194064;
+    color: white;
+    display: flex;
+    justify-content: flex-end;
+    align-items:center ;
+    
+}
 
-
+.prev {
+    background: #194064;
+    color: white;
+    display: flex;
+    justify-content: flex-end;
+    align-items:center ;
+    margin-left: 55rem;
+}
 
 
 

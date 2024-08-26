@@ -25,13 +25,6 @@ const Trackfee = () => {
     father: "",
     age: "",
     class: "",
-    // email: "",
-    // mobile: "",
-    // aadhar: "",
-    // address: "",
-    // fees: "",
-    // due: "",
-    // english: "",
     hindi: "",
     mathematics: "",
     science: "",
@@ -47,12 +40,6 @@ const Trackfee = () => {
     father: "",
     age: "",
     class: "",
-    // email: "",
-    // mobile: "",
-    // aadhar: "",
-    // address: "",
-    // fees: "",
-    // due: "",
     english: "",
     hindi: "",
     mathematics: "",
@@ -169,13 +156,6 @@ const Trackfee = () => {
       father: el.father,
       age: el.age,
       class: el.class,
-      // email: el.email,
-      // mobile: el.mobile,
-      // aadhar: el.aadhar,
-      // address: el.address,
-      // fees: el.fees,
-      // feesdue: el.due,
-      // mode: el.mode,
       english: el.english,
       hindi: el.hindi,
       mathematics: el.mathematics,
@@ -191,110 +171,102 @@ const Trackfee = () => {
   const handlePrintSlip = (el) => {
     const printWindow = window.open(
       "",
-      "Print Fee Slip",
-      "width=800,height=600"
+      "Print Result",
+      "width=800,height=1200"
     );
     printWindow.document.write(`
       <html>
         <head>
-          <title>Fee Slip</title>
+          <title>Result Slip</title>
           <style>
-            /* Add your print styles here */
-            .fee-slip {
+            body {
               font-family: Arial, sans-serif;
+              margin: 0;
+              padding: 0;
+            }
+            .result-slip {
               padding: 20px;
-              border: 1px solid black;
-              width: 80mm;
+              width: 210mm; /* A4 size */
+              height: 297mm; /* A4 size */
               margin: 0 auto;
+              border: 1px solid #000;
+              background-image: url('path_to_your_marksheet_background_image.jpg'); /* Replace with the path to your background image */
+              background-size: cover;
+              background-position: center;
+              color: #000; /* Adjust text color for better visibility on background */
             }
             .header {
               text-align: center;
-              margin-bottom: 10px;
+              margin-bottom: 20px;
             }
             .header h1 {
-              font-size: 16px;
+              font-size: 20px;
               margin: 0;
             }
             .header h2 {
-              font-size: 14px;
+              font-size: 16px;
               margin: 0;
             }
             .header p {
-              font-size: 12px;
+              font-size: 14px;
               margin: 0;
             }
-            .fee-slip table {
+            .student-info, .result-info {
+              margin-bottom: 20px;
+            }
+            .student-info table, .result-info table {
               width: 100%;
-              margin-bottom: 10px;
               border-collapse: collapse;
+              margin-bottom: 10px;
             }
-            .fee-slip table, .fee-slip th, .fee-slip td {
-              border: none;
-              padding: 5px;
-              font-size: 12px;
+            .student-info th, .result-info th, .student-info td, .result-info td {
+              border: 1px solid #000;
+              padding: 8px;
+              font-size: 14px;
             }
-            .fee-slip th {
+            .student-info th, .result-info th {
               text-align: left;
-              width: 50%;
             }
-            .fee-slip td {
+            .student-info td, .result-info td {
               text-align: right;
-              width: 50%;
-            }
-            .amount {
-              text-align: right;
-              margin-top: 20px;
-              font-weight: bold;
             }
             .footer {
               text-align: right;
-              font-size: 12px;
-              margin-top: 10px;
-            }
-            .stamp {
-              text-align: right;
+              font-size: 14px;
               margin-top: 20px;
-              font-size: 12px;
-            }
-            .tally-user {
-              text-align: left;
-              margin-top: 10px;
-              font-size: 12px;
             }
           </style>
         </head>
         <body>
-          <div class="fee-slip">
+          <div class="result-slip">
             <div class="header">
-              <h1>INSTITUTE OF TECHNOLOGY AND MANAGEMENT</h1>
-              <p>ITM CAMPUS OPP. SITHOLI</p>
-              <p>RAILWAY STATION JHANSI ROAD, GWALIOR</p>
-              <p>Phone: 000-00000000</p>
+              <h1>Board of Secondary Education, Madhya Pradesh</h1>
+              <h2>Class 10th Result</h2>
+              <p>Academic Year: 2023-2024</p>
             </div>
-            <table>
-              <tr><th>Student Name:</th><td>${el.name}</td></tr>
-              <tr><th>Father Name:</th><td>${el.father}</td></tr>
-              <tr><th> Roll No.:</th><td>${el._id}</td></tr>
-               <tr><th>Class:</th><td>${el.class}</td></tr>
-              <tr><th>Date of Submission:</th><td>${el.date}</td></tr>
-            </table>
-            <table>
-              <tr><th>Particular</th><th>Amount</th></tr>
-            </table>
-            <div class="amount">
-              <p>TOTAL: ${el.fees}</p>
-               <p>Balance Due : ${el.due}</p>
+            <div class="student-info">
+              <table>
+                <tr><th>Student Name:</th><td>${el.name}</td></tr>
+                <tr><th>Father Name:</th><td>${el.father}</td></tr>
+                <tr><th>Roll No.:</th><td>${el._id}</td></tr>
+                <tr><th>Class:</th><td>${el.class}</td></tr>
+                <tr><th>Date of Birth:</th><td>${el.dob}</td></tr>
+              </table>
             </div>
-            <div class="footer">
-              <p>By Cash/Cheque: ${el.mode}</p>
-              <p>Drawn on:</p>
-            </div>
-            <div class="stamp">
-              <p>_____________________________</p>
-              <p>Cashier</p>
-            </div>
-            <div class="tally-user">
-              <p>Tally User: ${el.tallyUser}</p>
+            <div class="result-info">
+              <table>
+                <tr><th>Subject</th><th>Marks Obtained</th><th>Total Marks</th></tr>
+                <tr><td>English</td><td>${el.english}</td><td>100</td></tr>
+                <tr><td>Hindi</td><td>${el.hindi}</td><td>100</td></tr>
+                <tr><td>Mathematics</td><td>${el.mathematics}</td><td>100</td></tr>
+                <tr><td>Science</td><td>${el.science}</td><td>100</td></tr>
+                <tr><td>Social Science</td><td>${el.yellow}</td><td>100</td></tr>
+              </table>
+              <div class="footer">
+                <p>Total Marks: ${el.marks}</p>
+                <p>Percentage: ${el.per}%</p>
+                <p>Status: ${el.status}</p>
+              </div>
             </div>
           </div>
         </body>
@@ -303,6 +275,8 @@ const Trackfee = () => {
     printWindow.document.close();
     printWindow.print();
   };
+  
+  
 
   return (
     <div className="container">
