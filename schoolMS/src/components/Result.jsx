@@ -248,9 +248,9 @@ const Trackfee = () => {
               <table>
                 <tr><th>Student Name:</th><td>${el.name}</td></tr>
                 <tr><th>Father Name:</th><td>${el.father}</td></tr>
-                <tr><th>Roll No.:</th><td>${el._id}</td></tr>
+                <tr><th>Roll No.:</th><td>${el.roll}</td></tr>
                 <tr><th>Class:</th><td>${el.class}</td></tr>
-                <tr><th>Date of Birth:</th><td>${el.dob}</td></tr>
+                <tr><th>Date of Birth:</th><td>${el.age}</td></tr>
               </table>
             </div>
             <div class="result-info">
