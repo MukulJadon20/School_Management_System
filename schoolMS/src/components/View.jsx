@@ -5,7 +5,13 @@ import "../App.css";
 import axios from "axios";
 import { IoMdMail } from "react-icons/io";
 import { FaMobileAlt } from "react-icons/fa";
-import { MdOutlineClass, MdLocationOn, MdModeEdit, MdDelete, MdClose } from "react-icons/md";
+import {
+  MdOutlineClass,
+  MdLocationOn,
+  MdModeEdit,
+  MdDelete,
+  MdClose,
+} from "react-icons/md";
 import { FaAddressCard } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 import Formedit from "./Formedit";
@@ -17,7 +23,7 @@ const View = () => {
   const [formData, setFormData] = useState({});
   const { id } = useParams();
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     getFetchData();
   }, [id]);
@@ -129,11 +135,17 @@ const View = () => {
           )}
           <div className="row">
             <div className="left_view col-lg-6 col-md-6 col-12">
-              <img
+              {/* <img
                 src="/public/image/user-profile-icon-free-vector.jpg"
                 style={{ width: 50 }}
                 alt="profile"
+              /> */}
+              <img
+                src="/image/user-profile-icon-free-vector.jpg"
+                style={{ width: 50 }}
+                alt="profile"
               />
+
               <h3 className="mt-3 ">
                 Name: <span style={{ fontWeight: 400 }}>{formData.name}</span>
               </h3>
@@ -149,7 +161,7 @@ const View = () => {
                 Class: <span>{formData.class}</span>
               </p>
               <p className="mt-3">
-              <FaTransgender />
+                <FaTransgender />
                 Gender: <span>{formData.gender}</span>
               </p>
             </div>
@@ -177,14 +189,15 @@ const View = () => {
                 Address: <span>{formData.address}</span>
               </p>
               <p className="mt-3">
-              <FaSearchLocation />
+                <FaSearchLocation />
                 Pincode: <span>{formData.pincode}</span>
               </p>
               <p className="mt-3">
                 <FaAddressCard /> Aadhar: <span>{formData.aadhar}</span>
               </p>
               <p className="mt-3">
-              <MdDateRange /> Date of Addmission: <span>{formData.addmission}</span>
+                <MdDateRange /> Date of Addmission:{" "}
+                <span>{formData.addmission}</span>
               </p>
             </div>
           </div>
@@ -195,21 +208,6 @@ const View = () => {
 };
 
 export default View;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import React, { useEffect, useState } from "react";
 // import "../app.css";
@@ -229,7 +227,7 @@ export default View;
 //   const [formData, setFormData] = useState({});
 //   const { id } = useParams();
 //   const navigate = useNavigate();
-// //  
+// //
 //   useEffect(() => {
 //     getFetchData();
 //   }, []);
