@@ -17,7 +17,7 @@ import ResultTable from "./ResultTable";
 
 axios.defaults.baseURL = `${baseUrl}/`;
 
-const Trackfee = () => {
+const Result = (totalMarks, setTotalMarks) => {
   const [addSection, setAddSection] = useState(false);
   const [editSection, setEditSection] = useState(false);
   const [formData, setFormData] = useState({
@@ -32,6 +32,7 @@ const Trackfee = () => {
     yellow: "",
     marks: "",
     per:"",
+    grade:"",
     _id: "",
   });
 
@@ -48,6 +49,7 @@ const Trackfee = () => {
     yellow: "",
     marks: "",
     per:"",
+    grade:"",
   });
 
   const [rest, setRest] = useState({
@@ -55,6 +57,7 @@ const Trackfee = () => {
     name: "",
     father: "",
     class: "",
+    grade:"",
     english: 0,
     hindi: 0,
     mathematics: 0,
@@ -73,7 +76,11 @@ const Trackfee = () => {
       ...preve,
       [name]: value,
     }));
+    
   };
+
+
+
 
   const handlesubmit = async (e) => {
     e.preventDefault();
@@ -163,7 +170,7 @@ const Trackfee = () => {
       roll: el.roll,
       yellow: el.yellow,
       marks: el.marks,
-      per:el.per,
+      grade:el.grade,
     });
     setEditSection(true);
   };
@@ -265,7 +272,7 @@ const Trackfee = () => {
               <div class="footer">
                 <p>Total Marks: ${el.marks}</p>
                 <p>Percentage: ${el.per}%</p>
-                <p>Status: ${el.status}</p>
+                <p>Grade: ${el.grade}</p>
               </div>
             </div>
           </div>
@@ -356,7 +363,7 @@ const Trackfee = () => {
   );
 };
 
-export default Trackfee;
+export default Result;
 
 
 

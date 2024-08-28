@@ -31,6 +31,7 @@ const schemaData = mongoose.Schema(
     science: String,
     roll: Number,
     per: String,
+    grade:String,
     yellow: { type: String, requires: true },
     marks: { type: String, requires: true },
   },
@@ -51,35 +52,6 @@ app.use(
     credentials: true, // Allow credentials (cookies, authorization headers, etc.)
   })
 );
-
-
-// app.use(cors({
-//   origin: ['http://localhost:5173', 'https://66cb5826e850fce14a4462f7--mukuljadon.netlify.app']
-// }));
-
-// app.use(
-//   cors({
-//     origin: "https://66cb5826e850fce14a4462f7--mukuljadon.netlify.app",
-//   })
-// );
-
-
-// const allowedOrigins = [
-//   'http://localhost:5173',
-//   'https://schoolmanagementsystem1.onrender.com',
-//   'https://66cb5826e850fce14a4462f7--mukuljadon.netlify.app' // Add any other relevant frontend URLs
-// ];
-
-// app.use(cors({
-//   origin: function(origin, callback){
-//     if(!origin) return callback(null, true);
-//     if(allowedOrigins.indexOf(origin) === -1){
-//       const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-//       return callback(new Error(msg), false);
-//     }
-//     return callback(null, true);
-//   }
-// }));
 
 
 

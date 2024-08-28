@@ -9,9 +9,9 @@ import Result from "./components/Result";
 import Trackfee from "./components/Trackfee";
 import Signup from "./components/Signup";
 import View from "./components/View";
-import Edit from "./components/ResultGenerate";
+//import Edit from "./components/ResultGenerate";
 import Logout from "./components/Logout";
-import ResultGenerate from "./components/ResultGenerate";
+//import ResultGenerate from "./components/ResultGenerate";
 
 
 const App = () => {
@@ -27,14 +27,7 @@ const App = () => {
           <Route path="/dashboard/trackfee" element={<Trackfee />}></Route>
           <Route path="/dashboard/logout" element={<Logout />}></Route>
           <Route path="/dashboard/student/View/:id" element={<View />}></Route>
-          <Route
-            path="/dashboard/student/view/edit/:id"
-            element={<Edit />}
-          ></Route>
-          <Route
-            path="/dashboard/result/resultgenerate/:id"
-            element={<ResultGenerate />}
-          ></Route>
+         
         </Route>
       </Routes>
     </BrowserRouter>
