@@ -57,9 +57,11 @@ const ResultTable = ({
         <div className="close-btn" onClick={handleclose}>
           <MdClose />
         </div>
-        <h3>Update Result</h3>
+        {/* <h3>Update Result</h3> */}
+        <h3> {rest.roll ? `Roll No: ${rest.roll}` : ""}{rest.name ? `--Generate Result for ${rest.name}` : "Update Result"}  </h3>
+        <h4></h4>
         <div className="form">
-          <div className="mb-3">
+          {/* <div className="mb-3">
             <label htmlFor="roll">Roll No.:</label>
             <input
               type="text"
@@ -77,8 +79,8 @@ const ResultTable = ({
               onChange={handleOnChange}
               value={rest.name || ""}
             />
-          </div>
-
+          </div> */}
+{/* 
           <div className="mb-3">
             <label htmlFor="father">Father:</label>
             <input
@@ -97,7 +99,7 @@ const ResultTable = ({
               onChange={handleOnChange}
               value={rest.class || ""}
             />
-          </div>
+          </div> */}
 
           <div className="mb-3">
             <label htmlFor="english">English:</label>
