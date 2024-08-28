@@ -139,7 +139,7 @@ const ResultTable = ({
             />
           </div>
 
-          <div className="mb-3">
+          <div className="mb-4">
             <label htmlFor="yellow">Social Science:</label>
             <input
               type="number"

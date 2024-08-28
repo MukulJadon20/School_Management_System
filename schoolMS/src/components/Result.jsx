@@ -17,7 +17,7 @@ import ResultTable from "./ResultTable";
 
 axios.defaults.baseURL = `${baseUrl}/`;
 
-const Result = (totalMarks, setTotalMarks) => {
+const Result = () => {
   const [addSection, setAddSection] = useState(false);
   const [editSection, setEditSection] = useState(false);
   const [formData, setFormData] = useState({
@@ -57,7 +57,7 @@ const Result = (totalMarks, setTotalMarks) => {
     name: "",
     father: "",
     class: "",
-    grade:"",
+    grade:0,
     english: 0,
     hindi: 0,
     mathematics: 0,
