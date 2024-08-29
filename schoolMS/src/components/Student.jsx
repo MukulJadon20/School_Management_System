@@ -8,6 +8,7 @@ import { FaEye, FaSearch } from "react-icons/fa";
 import { MdModeEdit, MdDelete, MdClose } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import { baseUrl } from "./urls";
+import { BsPersonFillAdd } from "react-icons/bs";
 
 axios.defaults.baseURL = `${baseUrl}/`;
 
@@ -48,7 +49,7 @@ const Student = () => {
   const [dataList, setDataList] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10); // Adjust as needed
+  const [itemsPerPage] = useState(5); // Adjust as needed
 
   const handleOnChange = (e) => {
     const { value, name } = e.target;
@@ -193,7 +194,8 @@ const Student = () => {
       </div>
 
       <button className="btn btn-add" onClick={() => setAddSection(true)}>
-        Enroll Student
+        
+      <BsPersonFillAdd />Enroll
       </button>
       {addSection && (
         <Formtable

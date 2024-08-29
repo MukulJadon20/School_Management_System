@@ -47,6 +47,8 @@ const Trackfee = () => {
   });
 
   const [dataList, setDataList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5); // Adjust as needed
 
   const handleOnChange = (e) => {
     const { value, name } = e.target;
@@ -153,6 +155,7 @@ const Trackfee = () => {
   // Function to handle search input change
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value.toLowerCase());
+    setCurrentPage(1); // Reset to first page when searching
   };
 
   // Function to filter the dataList based on searchQuery
@@ -170,6 +173,14 @@ const Trackfee = () => {
     );
   });
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredDataList.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
+  const totalPages = Math.ceil(filteredDataList.length / itemsPerPage);
   const handlePrintSlip = (el) => {
     const printWindow = window.open(
       "",
@@ -332,8 +343,8 @@ const Trackfee = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredDataList.length > 0 ? (
-              filteredDataList.map((el) => (
+            {currentItems.length > 0 ? (
+              currentItems.map((el) => (
                 <tr key={el._id}>
                   <td>{el.name}</td>
                   <td>{el.father}</td>
@@ -370,6 +381,28 @@ const Trackfee = () => {
             )}
           </tbody>
         </table>
+      </div>
+
+      <div className="pagination">
+        <button
+          className="prev"
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          className="next"
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
       </div>
     </div>
   );

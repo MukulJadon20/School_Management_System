@@ -3,6 +3,7 @@ import { PORT, mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
 import cors from "cors";
 import { Admin } from "./models/adminSchema.js";
+import bcrypt from "bcrypt";
 
 // require("dotenv").config
 // const PORT=process.env.PORT;
@@ -31,7 +32,7 @@ const schemaData = mongoose.Schema(
     science: String,
     roll: Number,
     per: String,
-    grade:String,
+    grade: String,
     yellow: { type: String, requires: true },
     marks: { type: String, requires: true },
   },
@@ -47,13 +48,15 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: ["http://localhost:5173","https://schoolmanagementsystem1.onrender.com","https://school-management-system-4-4cqa.onrender.com"], // Replace with your frontend URL
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    origin: [
+      "http://localhost:5173",
+      "https://schoolmanagementsystem1.onrender.com",
+      "https://school-management-system-4-4cqa.onrender.com",
+    ], // Replace with your frontend URL
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true, // Allow credentials (cookies, authorization headers, etc.)
   })
 );
-
-
 
 // Routes
 app.get("/getinfo", async (req, res) => {
@@ -147,12 +150,37 @@ app.delete("/deleteinfo/:id", async (req, res) => {
 //   return res.status(200).send("welcome to mern stack");
 // });
 
-app.post("/", (req, res) => {
-  Admin.create(req.body)
-    .then((Admin) => res.json(Admin))
-    .catch((err) => res.json(err));
-});
+// app.post("/", (req, res) => {
+//   Admin.create(req.body)
+//     .then((Admin) => res.json(Admin))
+//     .catch((err) => res.json(err));
+// });
 
+// Signup route
+app.post("/", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Check if email already exists
+    const existingAdmin = await Admin.findOne({ email });
+
+    if (existingAdmin) {
+      return res.status(409).json({ message: "Email already exists" });
+    }
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create a new admin with the hashed password
+    const newAdmin = new Admin({ email, password: hashedPassword });
+    await newAdmin.save();
+
+    return res.status(200).json({ message: "Signup successful" });
+  } catch (err) {
+    console.error("Error during signup:", err);
+    return res.status(500).json({ message: "Server error" });
+  }
+});
 // app.post("/login", (req, res) => {
 //   const { email, password } = req.body;
 //   Admin.findOne({ email: email }).then((user) => {

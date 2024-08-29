@@ -31,8 +31,8 @@ const Result = () => {
     roll: "",
     yellow: "",
     marks: "",
-    per:"",
-    grade:"",
+    per: "",
+    grade: "",
     _id: "",
   });
 
@@ -48,27 +48,14 @@ const Result = () => {
     roll: "",
     yellow: "",
     marks: "",
-    per:"",
-    grade:"",
+    per: "",
+    grade: "",
   });
-
-  const [rest, setRest] = useState({
-    roll: "",
-    name: "",
-    father: "",
-    class: "",
-    grade:0,
-    english: 0,
-    hindi: 0,
-    mathematics: 0,
-    science: 0,
-    yellow: 0,
-    marks: 0,
-    per: 0,
-  });
-
 
   const [dataList, setDataList] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5); // Adjust as needed
 
   const handleOnChange = (e) => {
     const { value, name } = e.target;
@@ -76,17 +63,16 @@ const Result = () => {
       ...preve,
       [name]: value,
     }));
-    
   };
 
-
-
+  // const handleSearchChange = (e) => {
+  //   setSearchQuery(e.target.value);
+  // };
 
   const handlesubmit = async (e) => {
     e.preventDefault();
     try {
       const { _id, ...dataToSend } = formData;
-      console.log("Submitting data:", dataToSend); // Debug log
       const response = await axios.post("/createinfo", dataToSend);
       if (response.status === 200) {
         setAddSection(false);
@@ -94,17 +80,24 @@ const Result = () => {
         getFetchData();
       }
     } catch (error) {
-      console.error("Error during submission:", error.response ? error.response.data : error.message);
+      console.error(
+        "Error during submission:",
+        error.response ? error.response.data : error.message
+      );
       alert("There was an error submitting the form. Please try again.");
     }
   };
-  
 
   const getFetchData = async () => {
     try {
       const data = await axios.get("/getinfo");
       if (data.data.success) {
-        setDataList(data.data.data);
+        const filteredData = data.data.data.filter(
+          (item) =>
+            item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            item.roll.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        setDataList(filteredData);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -113,7 +106,7 @@ const Result = () => {
 
   useEffect(() => {
     getFetchData();
-  }, []);
+  }, []); // Refetch data when searchQuery changes
 
   const handleDelete = async (id) => {
     const data = await axios.delete("/deleteinfo/" + id);
@@ -147,7 +140,6 @@ const Result = () => {
     }
   };
 
-
   const handleEditOnChange = (e) => {
     const { value, name } = e.target;
     setFormDataEdit((preve) => ({
@@ -170,10 +162,40 @@ const Result = () => {
       roll: el.roll,
       yellow: el.yellow,
       marks: el.marks,
-      grade:el.grade,
+      grade: el.grade,
     });
     setEditSection(true);
   };
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value.toLowerCase());
+    setCurrentPage(1); // Reset to first page when searching
+  };
+
+  const filteredDataList = dataList.filter((el) => {
+    const name = el.name ? el.name.toString().toLowerCase() : "";
+    const father = el.father ? el.father.toString().toLowerCase() : "";
+    const age = el.age ? el.age.toString().toLowerCase() : "";
+    const className = el.class ? el.class.toString().toLowerCase() : "";
+    const roll = el.roll ? el.roll.toString().toLowerCase() : "";
+
+    return (
+      name.includes(searchQuery) ||
+      father.includes(searchQuery) ||
+      age.includes(searchQuery) ||
+      className.includes(searchQuery) ||
+      roll.includes(searchQuery)
+    );
+  });
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredDataList.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
+  const totalPages = Math.ceil(filteredDataList.length / itemsPerPage);
 
   const handlePrintSlip = (el) => {
     const printWindow = window.open(
@@ -282,32 +304,37 @@ const Result = () => {
     printWindow.document.close();
     printWindow.print();
   };
-  
-  
 
   return (
     <div className="container">
+       <div className="search-bar">
+        <div className="icon">
+          <FaSearch />
+        </div>
+        <input
+          type="text"
+          placeholder="  Search by name, DOB, or father's name"
+          value={searchQuery}
+          onChange={handleSearchChange}
+        />
+      </div>
       {addSection && (
         <ResultTable
-          handlesubmit={handlesubmit}
-          handleOnChange={handleOnChange}
-          handleclose={() => setAddSection(false)}
-          // rest={formData}
-          rest={rest}
-          setRest={setRest}  // Pass setRest as a prop
+        handlesubmit={handlesubmit}
+        handleOnChange={handleOnChange}
+        handleclose={() => setAddSection(false)}
+        rest={formData}
         />
       )}
       {editSection && (
         <ResultTable
-          handlesubmit={handleUpdate}
-          handleOnChange={handleEditOnChange}
-          handleclose={() => setEditSection(false)}
-          rest={formDataEdit}
-          // rest={rest}
-          // setRest={setRest}  // Pass setRest as a prop
+        handlesubmit={handleUpdate}
+        handleOnChange={handleEditOnChange}
+        handleclose={() => setEditSection(false)}
+        rest={formDataEdit}
         />
       )}
-
+     
       <div className="tableContainer">
         <table>
           <thead>
@@ -320,13 +347,13 @@ const Result = () => {
             </tr>
           </thead>
           <tbody>
-            {dataList.length > 0 ? (
-              dataList.map((el) => (
+            {currentItems.length > 0 ? (
+              currentItems.map((el) => (
                 <tr key={el._id}>
-                   <td>{el.roll}</td>
+                  <td>{el.roll}</td>
                   <td>{el.name}</td>
                   <td>{el.class}</td>
-                  <td>{el.marks}</td> 
+                  <td>{el.marks}</td>
                   <td>
                     <button
                       className="btn btn-edit"
@@ -359,37 +386,33 @@ const Result = () => {
           </tbody>
         </table>
       </div>
+
+      <div className="pagination">
+        <button
+          className="prev"
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          className="next"
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };
 
 export default Result;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //  /* eslint-disable no-unused-vars */
 // import React, { useEffect, useState } from "react";
@@ -416,24 +439,24 @@ export default Result;
 //   const [addSection, setAddSection] = useState(false);
 //   const [editSection, setEditSection] = useState(false);
 //   const [formData, setFormData] = useState({
-    // name: "",
-    // father: "",
-    // age: "",
-    // class: "",
-    // email: "",
-    // mobile: "",
-    // aadhar: "",
-    // address: "",
-    // fees: "",
-    // due: "",
-    // english: "",
-    // hindi: "",
-    // mathematics: "",
-    // science: "",
-    // roll: "",
-    // yellow: "",
-    // marks: "",
-    // _id: "",
+// name: "",
+// father: "",
+// age: "",
+// class: "",
+// email: "",
+// mobile: "",
+// aadhar: "",
+// address: "",
+// fees: "",
+// due: "",
+// english: "",
+// hindi: "",
+// mathematics: "",
+// science: "",
+// roll: "",
+// yellow: "",
+// marks: "",
+// _id: "",
 //   });
 
 //   const [formDataEdit, setFormDataEdit] = useState({
@@ -604,10 +627,10 @@ export default Result;
 //             {dataList.length > 0 ? (
 //               dataList.map((el) => (
 //                 <tr key={el._id}>
-                  // <td>{el.roll}</td>
-                  // <td>{el.name}</td>
-                  // <td>{el.class}</td>
-                  // <td>{el.marks}</td> {/* Display total marks */}
+// <td>{el.roll}</td>
+// <td>{el.name}</td>
+// <td>{el.class}</td>
+// <td>{el.marks}</td> {/* Display total marks */}
 //                   <td>
 //                     <button
 //                       className="btn btn-edit"
