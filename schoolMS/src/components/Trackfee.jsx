@@ -13,6 +13,7 @@ import { NavLink } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { IoPrintSharp } from "react-icons/io5";
 import { baseUrl } from "./urls";
+import { IoCheckmarkDoneCircle } from "react-icons/io5";
 
 axios.defaults.baseURL = `${baseUrl}/`;
 
@@ -49,6 +50,7 @@ const Trackfee = () => {
   const [dataList, setDataList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5); // Adjust as needed
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const handleOnChange = (e) => {
     const { value, name } = e.target;
@@ -65,8 +67,11 @@ const Trackfee = () => {
       const response = await axios.post("/createinfo", dataToSend);
       if (response.status === 200) {
         setAddSection(false);
-        alert(response.data.message);
+        // alert(response.data.message);
+        setShowSuccessMessage(true); // Show the success message
         getFetchData();
+        // Hide the success message after 3 seconds
+        setTimeout(() => setShowSuccessMessage(false), 3000);
       }
     } catch (error) {
       console.error(
@@ -112,8 +117,11 @@ const Trackfee = () => {
       );
       if (response.data.success) {
         getFetchData();
-        alert(response.data.message);
+        // alert(response.data.message);
         setEditSection(false);
+        setShowSuccessMessage(true); // Show the success message
+        // Hide the success message after 3 seconds
+        setTimeout(() => setShowSuccessMessage(""), 3000);
       }
     } catch (error) {
       console.error(
@@ -330,6 +338,22 @@ const Trackfee = () => {
         />
       )}
 
+         {/* Display success message */}
+         {showSuccessMessage && (
+        <div
+          className="alert alert-success"
+          style={{
+            position: "fixed",
+            top: "10%",
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: "1000",
+          }}
+        >
+          <IoCheckmarkDoneCircle /> Student Fess Upadated successfully!
+        </div>
+      )}
+
       {/* Table with Filtered Data */}
       <div className="tableContainer">
         <table>
@@ -357,12 +381,12 @@ const Trackfee = () => {
                     >
                       <MdModeEdit />
                     </button>
-                    <button
+                    {/* <button
                       className="btn btn-delete"
                       onClick={() => handleDelete(el._id)}
                     >
                       <MdDelete />
-                    </button>
+                    </button> */}
                     <button
                       className="btn btn-print"
                       onClick={() => handlePrintSlip(el)}

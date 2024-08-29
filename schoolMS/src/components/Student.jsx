@@ -1,20 +1,23 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import "../App.css";
 import axios from "axios";
 import Formtable from "./Formtable";
 import Formedit from "./Formedit";
 import { FaEye, FaSearch } from "react-icons/fa";
-import { MdModeEdit, MdDelete, MdClose } from "react-icons/md";
+import { MdModeEdit, MdDelete } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import { baseUrl } from "./urls";
 import { BsPersonFillAdd } from "react-icons/bs";
+import { IoCheckmarkDoneCircle } from "react-icons/io5";
 
 axios.defaults.baseURL = `${baseUrl}/`;
 
 const Student = () => {
   const [addSection, setAddSection] = useState(false);
   const [editSection, setEditSection] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     father: "",
@@ -35,7 +38,7 @@ const Student = () => {
     name: "",
     father: "",
     age: "",
-    gender:"",
+    gender: "",
     class: "",
     email: "",
     mobile: "",
@@ -50,6 +53,9 @@ const Student = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5); // Adjust as needed
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [studentToDelete, setStudentToDelete] = useState(null);
 
   const handleOnChange = (e) => {
     const { value, name } = e.target;
@@ -58,16 +64,19 @@ const Student = () => {
       [name]: value,
     }));
   };
-
+  
   const handlesubmit = async (e) => {
     e.preventDefault();
     try {
       const { _id, ...dataToSend } = formData;
       const response = await axios.post("/createinfo", dataToSend);
       if (response.status === 200) {
-        setAddSection(false);
-        alert(response.data.message);
+        setAddSection(false); // Hide the form
+        setEditSection(false); // Ensure edit section is hidden if open
+        setShowSuccessMessage(true); // Show the success message
         getFetchData();
+        // Hide the success message after 3 seconds
+        setTimeout(() => setShowSuccessMessage(false), 3000);
       }
     } catch (error) {
       console.error(
@@ -93,12 +102,27 @@ const Student = () => {
     getFetchData();
   }, []);
 
-  const handleDelete = async (id) => {
-    const data = await axios.delete("/deleteinfo/" + id);
-    if (data.data.success) {
-      getFetchData();
-      alert(data.data.message);
+  const handleDelete = (id) => {
+    setStudentToDelete(id);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDelete = async () => {
+    try {
+      const response = await axios.delete(`/deleteinfo/${studentToDelete}`);
+      if (response.data.success) {
+        getFetchData();
+        setShowDeleteModal(false);
+        setStudentToDelete(null);
+      }
+    } catch (error) {
+      console.error("Error deleting student:", error);
     }
+  };
+
+  const cancelDelete = () => {
+    setShowDeleteModal(false);
+    setStudentToDelete(null);
   };
 
   const handleUpdate = async (e) => {
@@ -113,8 +137,10 @@ const Student = () => {
       );
       if (response.data.success) {
         getFetchData();
-        alert(response.data.message);
         setEditSection(false);
+        setShowSuccessMessage(true); // Show the success message
+        // Hide the success message after 3 seconds
+        setTimeout(() => setShowSuccessMessage(""), 3000);
       }
     } catch (error) {
       console.error(
@@ -139,7 +165,7 @@ const Student = () => {
       name: el.name,
       father: el.father,
       age: el.age,
-      gender:el.gender,
+      gender: el.gender,
       class: el.class,
       email: el.email,
       mobile: el.mobile,
@@ -175,7 +201,10 @@ const Student = () => {
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredDataList.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredDataList.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   const totalPages = Math.ceil(filteredDataList.length / itemsPerPage);
 
@@ -187,15 +216,15 @@ const Student = () => {
         </div>
         <input
           type="text"
-          placeholder="  Search by name, DOB, or father's name"
+          placeholder="Search by name, DOB, or father's name"
           value={searchQuery}
           onChange={handleSearchChange}
         />
       </div>
 
       <button className="btn btn-add" onClick={() => setAddSection(true)}>
-        
-      <BsPersonFillAdd />Enroll
+        <BsPersonFillAdd />
+        Enroll
       </button>
       {addSection && (
         <Formtable
@@ -212,6 +241,43 @@ const Student = () => {
           handleclose={() => setEditSection(false)}
           rest={formDataEdit}
         />
+      )}
+
+      {/* Display success message */}
+      {showSuccessMessage && (
+        <div
+          className="alert alert-success"
+          style={{
+            position: "fixed",
+            top: "10%",
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: "1000",
+          }}
+        >
+          <IoCheckmarkDoneCircle /> Student Enrolled successfully!
+        </div>
+      )}
+
+      {/* Delete confirmation modal */}
+      {showDeleteModal && (
+        <div className="modal" style={modalStyles}>
+          <div className="modal-content" style={modalContentStyles}>
+            <h4>Are you sure you want to delete this Student?</h4>
+            <div className="d-flex justify-content-around mt-4">
+              <button
+                className="btn btn-danger"
+                style={{ marginRight: "10px" }}
+                onClick={confirmDelete}
+              >
+                Yes
+              </button>
+              <button className="btn btn-secondary" onClick={cancelDelete}>
+                No
+              </button>
+            </div>
+          </div>
+        </div>
       )}
 
       <div className="tableContainer">
@@ -267,16 +333,20 @@ const Student = () => {
 
       <div className="pagination">
         <button
-        className="prev"
-          onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+          className="prev"
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
         >
           Previous
         </button>
-        <span>Page {currentPage} of {totalPages}</span>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
         <button
-        className="next"
-          onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+          className="next"
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
           disabled={currentPage === totalPages}
         >
           Next
@@ -288,18 +358,30 @@ const Student = () => {
 
 export default Student;
 
+// Styles for modal
+const modalStyles = {
+  // position: 'fixed',
+  // top: 0,
+  // left: 0,
 
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  maxwidth: "20%",
+  maxheight: "20%",
+  backgroundColor: "rgba(0, 0, 0, 0.5)",
+  zIndex: 1000,
+};
 
-
-
-
-
-
-
-
-
-
-
+const modalContentStyles = {
+  backgroundColor: "#fff",
+  padding: "20px",
+  borderRadius: "8px",
+  textAlign: "center",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+};
 
 // /* eslint-disable no-unused-vars */
 // import React, { useEffect, useState } from "react";
