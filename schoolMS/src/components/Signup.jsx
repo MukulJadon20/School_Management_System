@@ -5,20 +5,21 @@ import axios from "axios";
 import { baseUrl } from "./urls";
 
 const Signup = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handlesubmit = (event) => {
     event.preventDefault();
-    setError('');
+    setError("");
 
     axios
-      .post(`${baseUrl}/`, { email, password })  // Correct route to register
+      .post(`${baseUrl}/`, { email, password }) // Correct route to register
       .then((result) => {
         if (result.status === 200) {
-          alert("Signup successful!");
+          // alert("Signup successful!");
+          console.log("Signup Successful");
           navigate("/login");
         }
       })
@@ -33,7 +34,11 @@ const Signup = () => {
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100 loginPage">
-      <div className="p-3 rounded w-25 borde loginForm">
+      {/* <div className="p-3 rounded w-25 borde loginForm"> */}
+      <div
+        className="p-3 rounded loginForm w-100"
+        style={{ maxWidth: "400px" }}
+      >
         <h2>Register Admin</h2>
         {error && <div className="alert alert-danger">{error}</div>}
         <form onSubmit={handlesubmit}>
@@ -67,7 +72,9 @@ const Signup = () => {
               required
             />
           </div>
-          <button className="btn btn-success w-100 rounded-0" type="submit">Signup</button>
+          <button className="btn btn-success w-100 rounded-0" type="submit">
+            Signup
+          </button>
         </form>
         <p>Already Have an Account?</p>
         <Link to="/login" className="btn btn-success w-100 rounded-0">
@@ -79,20 +86,6 @@ const Signup = () => {
 };
 
 export default Signup;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // /* eslint-disable no-unused-vars */
 // import React, { useState } from "react";
@@ -167,10 +160,3 @@ export default Signup;
 // };
 
 // export default Signup;
-
-
-
-
-
-
-

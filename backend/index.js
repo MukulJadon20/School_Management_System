@@ -50,7 +50,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://schoolmanagementsystem1.onrender.com",
+      "https://school-management-system-0.onrender.com",
       "https://school-management-system-4-4cqa.onrender.com",
     ], // Replace with your frontend URL
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
